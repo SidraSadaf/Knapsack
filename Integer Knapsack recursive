@@ -1,0 +1,64 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int max(int a, int b){
+    return a > b ? a : b; 
+}
+ 
+int max(int a, int b, int c){
+    return max(max(a,b),max(b,c)); 
+}
+ 
+int maxSum(vector<int> numbers, int N, int K){
+ 
+    //cout << N << " : " << K << endl;
+ 
+    if(N<=0 || K<=0){
+        return 0;
+    }
+ 
+    // If the Nth number is greater than K, let's skip it.
+    while(numbers[N-1] > K){
+        N--;
+    }
+ 
+    return max( (maxSum(numbers, N-1, K)), (numbers[N-1] + maxSum(numbers, N, K-numbers[N-1])), (numbers[N-1] + maxSum(numbers, N-1, K-numbers[N-1])) );
+ 
+    /*
+    1 : (maxSum(numbers, N-1, K))                               :   Nth number not used.
+    2 : (numbers[N-1] + maxSum(numbers, N, K-numbers[N-1]))     :   Nth number used more than once
+    3 : (numbers[N-1] + maxSum(numbers, N-1, K-numbers[N-1]))   :   Nth number used only once
+    */
+ 
+}
+ 
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    int T;
+    cin >> T;
+ 
+    while(T--){
+        int N, K;
+        cin >> N >> K;
+ 
+        int a;
+        vector<int> numbers;
+ 
+        while(N--){
+            cin >> a;
+            numbers.push_back(a);
+ 
+        }
+ 
+        N = numbers.size();
+ 
+        cout << maxSum(numbers, N, K) << endl;
+    }
+ 
+    return 0;
+}
