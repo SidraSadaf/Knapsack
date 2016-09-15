@@ -11,7 +11,7 @@ int cmp(struct item a, struct item b){
 	return(a.ratio>b.ratio ? 1 : 0);
 }
 
-int knapsack(struct item arr[], int n, int sum){
+double knapsack(struct item arr[], int n, int sum){
 	sort(arr, arr+n, cmp);
 	
 	int curr_weight = 0;	//current weight in knapsack
